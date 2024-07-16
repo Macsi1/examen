@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+    .disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <section class="vh-100 bg-image" style="background-color: rgb(1, 162, 202);">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Crear Cuenta</h2>
+
+                <form id="registrationForm" method="post">
+                  {% csrf_token %}
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="form3Example1cg" name="username" class="form-control form-control-lg" required/>
+                    <label class="form-label" for="form3Example1cg">Nombre de Usuario</label>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="email" id="form3Example3cg" name="email" class="form-control form-control-lg" required/>
+                    <label class="form-label" for="form3Example3cg">Email</label>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="form3Example4cg" name="password" class="form-control form-control-lg" required/>
+                    <label class="form-label" for="form3Example4cg">Contraseña</label>
+                  </div>
+
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input
+                      class="form-check-input me-2"
+                      type="checkbox"
+                      value=""
+                      id="form2Example3cg"
+                      required
+                    />
+                    <label class="form-check-label" for="form2Example3cg">
+                      Acepto los términos y condiciones
+                    </label>
+                  </div>
+
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" disabled>Registrar</button>
+                  </div>
+
+                  <p class="text-center text-muted mt-3 mb-0">¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="fw-bold text-body"><u>Iniciar Sesión</u></a></p>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const usernameInput = document.getElementById('form3Example1cg');
+      const emailInput = document.getElementById('form3Example3cg');
+      const passwordInput = document.getElementById('form3Example4cg');
+      const termsCheckbox = document.getElementById('form2Example3cg');
+      const registrationForm = document.getElementById('registrationForm');
+      const submitButton = document.querySelector('#registrationForm button[type="submit"]');
+
+      const validateForm = () => {
+        const usernameValue = usernameInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const passwordValue = passwordInput.value.trim();
+        const termsChecked = termsCheckbox.checked;
+
+        if (usernameValue && emailValue && passwordValue.length >= 7 && termsChecked) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      };
+
+      usernameInput.addEventListener('input', validateForm);
+      emailInput.addEventListener('input', validateForm);
+      passwordInput.addEventListener('input', validateForm);
+      termsCheckbox.addEventListener('change', validateForm);
+
+      registrationForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Simulate form submission (replace with actual backend integration)
+        alert("Registro exitoso!");
+
+        // Reset form fields
+        registrationForm.reset();
+        // Reset submit button state
+        submitButton.disabled = true;
+      });
+    });
+  </script>
+</body>
+</html>

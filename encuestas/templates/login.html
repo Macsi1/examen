@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+    .disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .img-icon {
+      width: 100px;
+      height: auto; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="center">
+      <img class="img-icon Imagen" src="https://cdn-icons-png.flaticon.com/512/6073/6073873.png" alt="foto usuario">
+    </div>
+    <form id="loginForm" method="post" action="{% url 'principal' %}">
+      {% csrf_token %}
+      <div class="Caja1 form-group">
+        <label for="correo_electronico">Correo Electrónico</label>
+        <input type="email" id="email" name="correo_electronico" class="form-control" placeholder="Correo Electrónico" required>
+      </div>
+      <div class="Caja2 form-group">
+        <label for="contraseña">Contraseña</label>
+        <input type="password" id="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
+      </div>
+      <div class="Caja3 form-group">
+        <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me" checked>
+        <label class="form-check-label" for="remember_me"> Recuérdame </label>
+      </div>
+      <div class="Caja3 form-group">
+        <button type="submit" class="btn btn-primary mb-4 disabled Buttom" disabled>Iniciar Sesión</button>
+      </div>
+      <div class="Caja4 form-group">
+        <a href="{% url 'login_recuperar' %}" class="Buttom1">¿Olvidaste la contraseña?</a>
+      </div>
+      <div class="Caja5 form-group">
+        <p>¿No eres miembro? <a href="{% url 'registro' %}" class="Buttom1">Regístrate</a></p>
+      </div>
+      <div class="Caja6 form-group">
+        <p>o inicia sesión con:</p>
+        <button type="button" class="btn btn-link">
+          <img class="img-icon1 Img" src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"> GitHub
+        </button>
+        <button type="button" class="btn btn-link">
+          <img class="img-icon1 Img" src="https://cdn-icons-png.flaticon.com/256/20/20673.png" alt="Facebook"> Facebook
+        </button>
+        <button type="button" class="btn btn-link">
+          <img class="img-icon1 Img" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/twitter-icon.png" alt="Twitter"> Twitter
+        </button>
+        <button type="button" class="btn btn-link">
+          <img class="img-icon1  Img" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/google-2749270-2284660.png?f=webp" alt="Google"> Google
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const loginButton = document.querySelector('#loginForm button[type="submit"]');
+      
+      const validateForm = () => {
+        const emailValue = emailInput.value.trim();
+        const passwordValue = passwordInput.value.trim();
+        
+        if (emailValue && passwordValue && passwordValue.length >= 7) {
+          loginButton.classList.remove('disabled');
+          loginButton.disabled = false;
+        } else {
+          loginButton.classList.add('disabled');
+          loginButton.disabled = true;
+        }
+      };
+      
+      emailInput.addEventListener('input', validateForm);
+      passwordInput.addEventListener('input', validateForm);
+    });
+  </script>
+</body>
+</html>
