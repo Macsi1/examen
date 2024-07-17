@@ -1,0 +1,61 @@
+{% extends "./base.html" %}
+{% block tittle %} Gestion de Productos {% endblock %}
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Agregar producto</h2>
+        <div class="card">
+            <div class="card_body">
+                <form action="{% url 'registrarProducto' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form_group">
+                        <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Codigo" minlength="1" maxlength="6" required>
+                    </div>
+                    <div class="form_group">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    </div>
+                    <div class="form_group">
+                        <input type="number" id="numPrecio" name="numPrecio" class="form-control" min="1" max="1000000" value="1" required>
+                    </div>
+                    <div class="form_group">
+                        <button type="submit" class="btn btn-success btn-block text-white"> Guardar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Productos</h1>
+        <div class="table_responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in productos %}
+                    <tr>
+                        <td> {{ p.codigo }} </td>
+                        <td> {{ p.nombre }} </td>
+                        <td> {{ p.precio }} </td>
+                        <td> <a href="{% url 'edicionProducto' p.codigo %}" class="btn btn-info">Editar</a> </td>
+                        <td>
+                            <form action="{% url 'eliminarProducto' p.codigo %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

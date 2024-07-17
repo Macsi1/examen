@@ -1,0 +1,30 @@
+{% extends "./base.html" %}
+{% block tittle %} Gestion de Productos {% endblock %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edicion de Producto</h2>
+        <div class="card">
+            <div class="card_body">
+                <form action="{% url 'editarProducto' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form_group">
+                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{ producto.codigo }}" class="form-control" placeholder="Codigo" minlength="1" maxlength="6" readonly required>
+                    </div>
+                    <div class="form_group">
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{ producto.nombre }}" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    </div>
+                    <div class="form_group">
+                        <input type="number" id="numPrecio" name="numPrecio" value="{{ producto.precio }}" class="form-control" min="1" max="1000000" required>
+                    </div>
+                    <div class="form_group">
+                        <button type="submit" class="btn btn-success btn-block text-white"> Guardar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

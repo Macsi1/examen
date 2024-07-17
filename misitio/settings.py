@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "encuestas.apps.EncuestasConfig",
+    "larrain.apps.LarrainConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,20 +71,11 @@ TEMPLATES = [
 ]
 LOGIN_REDIRECT_URL = 'principal'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Adjust this path as per your project structure
-]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+WSGI_APPLICATION = 'misitio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'Productos.db',
     }
 }
 
@@ -111,9 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EncuestasConfig(AppConfig):
+class LarrainConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'encuestas'
+    name = 'larrain'
