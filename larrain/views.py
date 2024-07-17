@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .models import Producto
+from django.contrib.auth.decorators import login_required
 
 def registro_view(request):
     if request.method == 'POST':
@@ -27,14 +28,17 @@ def recuperar_view(request):
         return redirect('login')  
     else:
         return render(request, 'recuperar.html')
-
+    
+@login_required
 def principal_view(request):
     return render(request, 'principal.html')
 
+@login_required
 def add_producto(request):
     productos = Producto.objects.all()
     return render(request, "todosProductos.html", {"productos": productos})
 
+@login_required
 def registrar_producto(request):
     if request.method == 'POST':
         codigo = request.POST['txtCodigo']
@@ -46,6 +50,7 @@ def registrar_producto(request):
     else:
         return redirect('principal')
     
+@login_required    
 def eliminarProducto(request, codigo):
     if request.method == 'POST':
         producto = Producto.objects.get(codigo=codigo)
@@ -54,6 +59,7 @@ def eliminarProducto(request, codigo):
     else:
         return redirect('principal')
     
+@login_required    
 def editarProducto(request):
     if request.method == 'POST':
         codigo = request.POST['txtCodigo']
@@ -68,7 +74,8 @@ def editarProducto(request):
         return redirect('productos')
     else:
         return redirect('principal')
-
+    
+@login_required
 def edicionProducto(request, codigo):
     if request.method == 'GET':
         producto = Producto.objects.get(codigo=codigo)

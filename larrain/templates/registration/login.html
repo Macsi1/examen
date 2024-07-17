@@ -22,22 +22,22 @@
     <div class="center">
       <img class="img-icon Imagen" src="https://cdn-icons-png.flaticon.com/512/6073/6073873.png" alt="foto usuario">
     </div>
-    <form id="loginForm" method="post" action="{% url 'principal' %}">
+    <form id="loginForm" method="post" action="">
       {% csrf_token %}
       <div class="Caja1 form-group">
-        <label for="correo_electronico">Correo Electrónico</label>
-        <input type="email" id="email" name="correo_electronico" class="form-control" placeholder="Correo Electrónico" required>
+        <label for="name">Nombre</label>
+        <input type="name" id="name" name="username" class="form-control" placeholder="Su nombre" required>
       </div>
       <div class="Caja2 form-group">
         <label for="contraseña">Contraseña</label>
-        <input type="password" id="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
       </div>
       <div class="Caja3 form-group">
         <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me" checked>
         <label class="form-check-label" for="remember_me"> Recuérdame </label>
       </div>
       <div class="Caja3 form-group">
-        <button type="submit" class="btn btn-primary mb-4 disabled Buttom" disabled>Iniciar Sesión</button>
+        <button type="submit" href="{% url 'login_recuperar' %}" class="btn btn-primary mb-4">Iniciar Sesión</button>
       </div>
       <div class="Caja4 form-group">
         <a href="{% url 'login_recuperar' %}" class="Buttom1">¿Olvidaste la contraseña?</a>
@@ -65,15 +65,15 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      const emailInput = document.getElementById('email');
+      const name = document.getElementById('name');
       const passwordInput = document.getElementById('password');
       const loginButton = document.querySelector('#loginForm button[type="submit"]');
       
       const validateForm = () => {
-        const emailValue = emailInput.value.trim();
+        const name = name.value.trim();
         const passwordValue = passwordInput.value.trim();
         
-        if (emailValue && passwordValue && passwordValue.length >= 7) {
+        if (name && passwordValue && passwordValue.length >= 5) {
           loginButton.classList.remove('disabled');
           loginButton.disabled = false;
         } else {
@@ -82,7 +82,7 @@
         }
       };
       
-      emailInput.addEventListener('input', validateForm);
+      name.addEventListener('input', validateForm);
       passwordInput.addEventListener('input', validateForm);
     });
   </script>
